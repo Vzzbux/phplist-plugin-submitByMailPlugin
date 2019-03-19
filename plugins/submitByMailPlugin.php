@@ -803,10 +803,14 @@ class submitByMailPlugin extends phplistPlugin
       		 	Sql_query(sprintf('insert into %s (messageid,attachmentid) values(%d,%d)',
           			$tables["message_attachment"],$this->mid,$attachmentid));
           	}  else {	// if not multipart and not attachment must be text/plain or text/html
-    				if ($c2 == 'plain') {
-    					$this->textmsg .= $apart->body;
-    				} else
-    					$this->htmlmsg .= $apart->body; 
+    				 $charset = $this->std($apart->ctype_parameters["charset"]);
+					 $body = $apart->body;
+					 if (is_string($charset) && strtolower($charset) !== "utf8") $body = iconv($charset, "UTF8", $body);
+					 if ($c2 == 'plain') {
+							 $this->textmsg .= $body;
+					 } else {
+							 $this->htmlmsg .= $body;
+					 }
     		} 
     	} 
     }
