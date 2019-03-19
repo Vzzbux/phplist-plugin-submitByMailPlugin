@@ -839,6 +839,9 @@ class submitByMailPlugin extends phplistPlugin
 	// access in this method, is merely to acquire a message ID.
 	private function loadMessageData ($msg) {
 	 	
+		$this->htmlmsg = NULL;
+		$this->textmsg = NULL;
+		
 	 	// Note that the 'replyto' item appears not to be in use
   		// This item in $messagedata must exist, but it will remain empty
   		// So we do nothing further with it
